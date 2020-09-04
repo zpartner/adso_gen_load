@@ -518,10 +518,10 @@ START-OF-SELECTION.
   DATA: lv_string TYPE string.
 
 *** Screen
-  SELECTION-SCREEN BEGIN OF BLOCK todo WITH FRAME TITLE TEXT-000.
-  PARAMETERS: p_gen TYPE abap_bool AS CHECKBOX DEFAULT abap_true.
-  PARAMETERS: p_write TYPE abap_bool AS CHECKBOX DEFAULT abap_false.
-  SELECTION-SCREEN END OF BLOCK todo.
+*  SELECTION-SCREEN BEGIN OF BLOCK todo WITH FRAME TITLE TEXT-000.
+*  PARAMETERS: p_gen TYPE abap_bool AS CHECKBOX DEFAULT abap_true.
+*  PARAMETERS: p_write TYPE abap_bool AS CHECKBOX DEFAULT abap_false.
+*  SELECTION-SCREEN END OF BLOCK todo.
 
   SELECTION-SCREEN BEGIN OF BLOCK source WITH FRAME TITLE TEXT-001.
   PARAMETERS: p_del(1) TYPE c DEFAULT ','.
@@ -595,7 +595,6 @@ START-OF-SELECTION.
 
   DATA(lo_adsogen) = NEW lcl_zpa_ut_cl_adsogen( ).
 
-  IF p_gen = abap_true.
 
     lo_adsogen->process_csv(
       EXPORTING
@@ -622,19 +621,3 @@ START-OF-SELECTION.
         WRITE: / <msg>.
       ENDLOOP.
     ENDIF.
-
-  ENDIF.
-
-  IF p_write = abap_true.
-
-    lo_adsogen->write_to_adso(
-      EXPORTING
-        iv_infoarea    = p_inarea
-        iv_adsonm      = p_adso
-        iv_delimiter   = p_del
-        iv_escape_char = p_esc
-      CHANGING
-        cv_string      = lv_string
-    ).
-
-  ENDIF.
