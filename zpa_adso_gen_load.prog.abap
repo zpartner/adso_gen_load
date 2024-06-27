@@ -119,8 +119,6 @@ CLASS lcl_zpa_ut_cl_adsogen IMPLEMENTATION.
         " Process File content
         LOOP AT lt_string ASSIGNING FIELD-SYMBOL(<ls_string>).
           CLEAR: lt_fields.
-*          lv_line = lv_line && <ls_string>. " this does not work... removed HKURZ 2020-08-10
-          " hack to handle newlines within field content (rather often happens in web data)
           REPLACE ALL OCCURRENCES OF cl_abap_char_utilities=>newline IN lv_line  WITH ''.
           CALL FUNCTION 'RSDS_CONVERT_CSV'
             EXPORTING
